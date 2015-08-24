@@ -21,7 +21,7 @@ function symptom_field_default_field_instances() {
         'label' => 'above',
         'module' => 'taxonomy',
         'settings' => array(),
-        'type' => 'taxonomy_term_reference_link',
+        'type' => 'taxonomy_term_reference_plain',
         'weight' => 4,
       ),
       'teaser' => array(
@@ -61,7 +61,7 @@ function symptom_field_default_field_instances() {
         'label' => 'above',
         'module' => 'taxonomy',
         'settings' => array(),
-        'type' => 'taxonomy_term_reference_link',
+        'type' => 'taxonomy_term_reference_plain',
         'weight' => 3,
       ),
       'teaser' => array(
@@ -182,13 +182,13 @@ function symptom_field_default_field_instances() {
       'module' => 'date',
       'settings' => array(
         'increment' => 1,
-        'input_format' => 'm/d/Y - H:i:s',
+        'input_format' => 'M j Y - g:i:sa',
         'input_format_custom' => '',
         'label_position' => 'above',
         'text_parts' => array(),
         'year_range' => '-3:+0',
       ),
-      'type' => 'date_select',
+      'type' => 'date_popup',
       'weight' => 7,
     ),
   );
