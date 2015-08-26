@@ -14,7 +14,7 @@ function symptom_node_info() {
       'base' => 'node_content',
       'description' => t('List one symptom for a specific time and location. '),
       'has_title' => '1',
-      'title_label' => t('Title'),
+      'title_label' => t('Give this symptom a name (migraine, headache, stiff neck, etc)'),
       'help' => '',
     ),
   );
