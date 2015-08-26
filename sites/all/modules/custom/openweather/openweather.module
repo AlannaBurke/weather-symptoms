@@ -1,0 +1,54 @@
+<?php
+/**
+ * @file
+ * Integrating OpenWeather API into Drupal.
+ */
+
+require_once DRUPAL_ROOT . '/vendor/cmfcmf/openweathermap-php-api/Cmfcmf/OpenWeatherMap.php';
+// Must point to composer's autoload file.
+require DRUPAL_ROOT . '/vendor/autoload.php';
+use Cmfcmf\OpenWeatherMap;
+
+/**
+ * Function to get hourly weather history (test).
+ */
+function openweather_get_history() {
+  // Language of data (try your own language here!):
+  $lang = 'en';
+
+  // Units (can be 'metric' or 'imperial' [default]):
+  $units = 'imperial';
+
+  // Get OpenWeatherMap object.
+  $owm = new OpenWeatherMap();
+
+  // Example 1: Get hourly weather history between 2014-01-01 and today.
+  $history = $owm->getWeatherHistory('Oceanside', new \DateTime('1 week ago'), new \DateTime('now'), 'hour', $units, $lang);
+  $history_markup = '';
+  foreach ($history as $weather) {
+    $history_markup .= 'Temperature at ' . $weather->time->format("D, F j, Y, g:i a") . ': ' . $weather->temperature . '<br />';
+    $history_markup .= 'Pressure at ' . $weather->time->format("D, F j, Y, g:i a") . ': ' . $weather->pressure . '<br />';
+    $history_markup .= 'Humidity at ' . $weather->time->format("D, F j, Y, g:i a") . ': ' . $weather->humidity . '<br /><br />';
+  }
+  return $history_markup;
+}
+
+
+/**
+ * Implements hook_block_info().
+ */
+function openweather_block_info() {
+  $blocks['history'] = array(
+    'info' => t('Weather History'),
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function openweather_block_view() {
+  $block['subject'] = t('Weather History');
+  $block['content'] = openweather_get_history();
+  return $block;
+}
