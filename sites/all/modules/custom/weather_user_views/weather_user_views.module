@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Weather User Views feature.
+ */
+
+include_once 'weather_user_views.features.inc';

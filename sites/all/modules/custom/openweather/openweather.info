@@ -1,0 +1,3 @@
+name = OpenWeather
+description = Drupal integration with OpenWeather PHP API
+core = 7.x
