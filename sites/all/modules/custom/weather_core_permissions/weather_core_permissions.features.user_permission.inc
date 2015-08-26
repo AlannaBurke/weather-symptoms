@@ -112,15 +112,6 @@ function weather_core_permissions_user_default_permissions() {
     'module' => 'user',
   );
 
-  // Exported permission: 'access weather search page'.
-  $permissions['access weather search page'] = array(
-    'name' => 'access weather search page',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'weather',
-  );
-
   // Exported permission: 'administer actions'.
   $permissions['administer actions'] = array(
     'name' => 'administer actions',
@@ -146,15 +137,6 @@ function weather_core_permissions_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'node',
-  );
-
-  // Exported permission: 'administer custom weather block'.
-  $permissions['administer custom weather block'] = array(
-    'name' => 'administer custom weather block',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'weather',
   );
 
   // Exported permission: 'administer date tools'.
