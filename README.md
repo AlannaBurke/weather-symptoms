@@ -19,9 +19,9 @@ Using [OpenWeatherMap PHP API](https://github.com/cmfcmf/OpenWeatherMap-PHP-Api/
 
 Sample symptom entry form:
 
-![Sample symptom entry form](public://2015-08-26_1613.png)
+![Sample symptom entry form](sites/default/files/2015-08-26_1613.png)
 
 
 Sample table of user's entries: 
 
-![Sample table of user's entries](public://2015-08-26_1614.png)
+![Sample table of user's entries](sites/default/files/2015-08-26_1614.png)
