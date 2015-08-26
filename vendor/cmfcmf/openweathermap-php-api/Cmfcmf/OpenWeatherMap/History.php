@@ -93,7 +93,7 @@ class History
     {
         $this->city = $city;
         $this->weather = new Weather($weather['id'], $weather['description'], $weather['icon']);
-        $this->temperature = new Temperature(new Unit($temperature['now'] - 273.15, "\xB0C"), new Unit($temperature['min'] - 273.15, "\xB0C"), new Unit($temperature['max'] - 273.15, "\xB0C"));
+        $this->temperature = new Temperature(new Unit(($temperature['now'] * 9/5) - 459.67, "&#176;F"), new Unit(($temperature['min'] * 9/5) - 459.67, "&#176;F"), new Unit(($temperature['max'] * 9/5) - 459.67, "&#176;F"));
         $this->pressure = new Unit($pressure, 'kPa');
         $this->humidity = new Unit($humidity, '%');
         $this->clouds = new Unit($clouds, '%');
