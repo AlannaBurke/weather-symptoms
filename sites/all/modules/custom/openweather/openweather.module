@@ -14,7 +14,7 @@ use Cmfcmf\OpenWeatherMap;
  */
 function openweather_get_history() {
   global $_SESSION;
-  dpm($_SESSION);
+  //dpm($_SESSION);
   // Language of data (try your own language here!):
   $lang = 'en';
 
@@ -25,7 +25,7 @@ function openweather_get_history() {
   $owm = new OpenWeatherMap();
 
   $weather = $owm->getWeather('Oceanside', $units, $lang);
-  dpm($weather);
+  //dpm($weather);
       $history_markup = t('%time' . '<br />', array('%time' => date("D M j Y g:i a")));
     $history_markup .= 'Temp: ' . $weather->temperature->getFormatted() . '<br />';
     $history_markup .= 'Pressure: ' . $weather->pressure . '<br />';
