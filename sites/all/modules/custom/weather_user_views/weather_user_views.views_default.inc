@@ -92,7 +92,7 @@ function weather_user_views_views_default_views() {
   $handler->display->display_options['fields']['field_time']['table'] = 'field_data_field_time';
   $handler->display->display_options['fields']['field_time']['field'] = 'field_time';
   $handler->display->display_options['fields']['field_time']['settings'] = array(
-    'format_type' => 'long',
+    'format_type' => 'short',
     'fromto' => 'both',
     'multiple_number' => '',
     'multiple_from' => '',
@@ -106,16 +106,6 @@ function weather_user_views_views_default_views() {
     'thousand_separator' => '',
     'prefix_suffix' => 1,
   );
-  /* Field: Content: Location of Symptom */
-  $handler->display->display_options['fields']['field_location_of_symptom']['id'] = 'field_location_of_symptom';
-  $handler->display->display_options['fields']['field_location_of_symptom']['table'] = 'field_data_field_location_of_symptom';
-  $handler->display->display_options['fields']['field_location_of_symptom']['field'] = 'field_location_of_symptom';
-  $handler->display->display_options['fields']['field_location_of_symptom']['type'] = 'taxonomy_term_reference_plain';
-  /* Field: Content: Helped by */
-  $handler->display->display_options['fields']['field_helped_by']['id'] = 'field_helped_by';
-  $handler->display->display_options['fields']['field_helped_by']['table'] = 'field_data_field_helped_by';
-  $handler->display->display_options['fields']['field_helped_by']['field'] = 'field_helped_by';
-  $handler->display->display_options['fields']['field_helped_by']['type'] = 'taxonomy_term_reference_plain';
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
@@ -151,6 +141,7 @@ function weather_user_views_views_default_views() {
   $handler->display->display_options['menu']['type'] = 'normal';
   $handler->display->display_options['menu']['title'] = 'My Symptoms';
   $handler->display->display_options['menu']['weight'] = '0';
+  $handler->display->display_options['menu']['name'] = 'main-menu';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
 
