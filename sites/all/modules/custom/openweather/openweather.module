@@ -13,6 +13,8 @@ use Cmfcmf\OpenWeatherMap;
  * Function to get hourly weather history (test).
  */
 function openweather_get_history() {
+  global $_SESSION;
+  dpm($_SESSION);
   // Language of data (try your own language here!):
   $lang = 'en';
 
@@ -22,14 +24,12 @@ function openweather_get_history() {
   // Get OpenWeatherMap object.
   $owm = new OpenWeatherMap();
 
-  // Example 1: Get hourly weather history between 2014-01-01 and today.
-  $history = $owm->getWeatherHistory('Oceanside', new \DateTime('1 week ago'), new \DateTime('now'), 'hour', $units, $lang);
-  $history_markup = '';
-  foreach ($history as $weather) {
-    $history_markup .= 'Temperature at ' . $weather->time->format("D, F j, Y, g:i a") . ': ' . $weather->temperature . '<br />';
-    $history_markup .= 'Pressure at ' . $weather->time->format("D, F j, Y, g:i a") . ': ' . $weather->pressure . '<br />';
-    $history_markup .= 'Humidity at ' . $weather->time->format("D, F j, Y, g:i a") . ': ' . $weather->humidity . '<br /><br />';
-  }
+  $weather = $owm->getWeather('Oceanside', $units, $lang);
+  dpm($weather);
+      $history_markup = t('%time' . '<br />', array('%time' => date("D M j Y g:i a")));
+    $history_markup .= 'Temp: ' . $weather->temperature->getFormatted() . '<br />';
+    $history_markup .= 'Pressure: ' . $weather->pressure . '<br />';
+    $history_markup .= 'Humidity: ' . $weather->humidity . '<br /><br />';
   return $history_markup;
 }
 
