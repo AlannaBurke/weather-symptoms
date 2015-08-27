@@ -3,7 +3,6 @@ description = Symptom Content Type & Fields
 core = 7.x
 package = Weather Features
 dependencies[] = date
-dependencies[] = node
 dependencies[] = number
 dependencies[] = taxonomy
 dependencies[] = weather_taxonomy
