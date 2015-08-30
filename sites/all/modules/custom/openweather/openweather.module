@@ -80,7 +80,7 @@ function openweather_humidity_line_graph(array $array) {
 
   // Set title and subtitle
   $graph->title->Set("Humidity over Time");
-  $graph->subtitle->Set("Oceanside, Aug 21 - Aug 27");
+  $graph->subtitle->Set("Oceanside " . date("D M j Y g:i a"));
 
   // Use built in font
   $graph->title->SetFont(FF_FONT1,FS_BOLD);
@@ -130,7 +130,7 @@ function openweather_pressure_line_graph(array $array) {
 
   // Set title and subtitle
   $graph->title->Set("Pressure over Time");
-  $graph->subtitle->Set("Oceanside, Aug 21 - Aug 27");
+  $graph->subtitle->Set("Oceanside " . date("D M j Y g:i a"));
 
   // Use built in font
   $graph->title->SetFont(FF_FONT1,FS_BOLD);
