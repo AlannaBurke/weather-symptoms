@@ -104,7 +104,7 @@ function smart_ip_init(){
   }
   // Save a database hit. If there's already session data, 
   // don't check if we need to geolocate the anonymous role
-  $smart_ip_session = smart_ip_session_get('smart_ip');
+  $smart_ip_session = smart_ip_session_get('smart_ip', FALSE);
   if (empty($smart_ip_session['location'])) {
     $roles_to_geo_locate = variable_get('smart_ip_roles_to_geolocate', array(DRUPAL_AUTHENTICATED_RID));
     if(in_array(DRUPAL_ANONYMOUS_RID, $roles_to_geo_locate) ){
@@ -504,9 +504,7 @@ function smart_ip_get_location($ip_address) {
   }
   if ($smart_ip_source == 'maxmind_bin') {
     // Maxmind binary database
-    if (!extension_loaded('geoip')) {
-      module_load_include('inc', 'smart_ip', 'includes/geoipcity');
-    }
+    module_load_include('inc', 'smart_ip', 'includes/geoipcity');
     $db_path  = drupal_realpath(file_stream_wrapper_uri_normalize('private://smart_ip'));
     $version  = variable_get('smart_ip_maxmind_bin_version', SMART_IP_MAXMIND_BIN_LICENSED_VERSION);
     $edition  = variable_get('smart_ip_maxmind_bin_edition', SMART_IP_MAXMIND_BIN_EDITION_CITY);
@@ -804,6 +802,7 @@ function smart_ip_set_session_data($location) {
 function smart_ip_set_user_data($account, $location) {
   if ($account->uid != 0) {
     $user_obj = user_load($account->uid);
+    drupal_alter('smart_ip_user_save', $user_obj, $location);
     user_save($user_obj, array('data' => array('geoip_location' => $location)));
   }
 }
@@ -822,15 +821,21 @@ function smart_ip_session_set($key, $value) {
 
 /**
  * Read session variable.
+ *
+ * @param string $key
+ *   The session variable to read. Pass 'smart_ip' to read the smart_ip data.
+ * @param bool $locate
+ *   (optional) If the key is 'smart_ip' and the data is not set, whether to
+ *   trigger a location lookup as fallback. Defaults to TRUE
  */
-function smart_ip_session_get($key) {
+function smart_ip_session_get($key, $locate = TRUE) {
   if (module_exists('session_cache')) {
     $smart_ip_session = session_cache_get($key);
   }
   else {
     $smart_ip_session = isset($_SESSION) && isset($_SESSION[$key]) ? $_SESSION[$key] : NULL;
   }
-  if ($key == 'smart_ip') {
+  if ($key == 'smart_ip' && !variable_get('smart_ip_debug', FALSE) && $locate) {
     $ip = ip_address();
     if (!isset($smart_ip_session['location']['ip_address']) || $smart_ip_session['location']['ip_address'] != $ip) {
       global $user;
@@ -897,13 +902,13 @@ function smart_ip_get_ipinfodb_url($ipinfodb_key, $ip_address, $version = 3) {
  * @param String $ip_adress IP address to geolocate
  */
 function smart_ip_get_maxmindgeoip_url($ip_address) {
-  $maxmind_key = variable_get('smart_ip_maxmind_key', '');
+  $maxmind_license = variable_get('smart_ip_maxmind_license', '');
   switch(variable_get('smart_ip_maxmind_service', 'country')){
     case 'country':
-      return SMART_IP_MAXMIND_GEOIP_BASE_URL . "/a?l=$maxmind_key&i=$ip_address";
+      return SMART_IP_MAXMIND_GEOIP_BASE_URL . "/a?l=$maxmind_license&i=$ip_address";
       break;
     case 'city_isp_org':
-      return SMART_IP_MAXMIND_GEOIP_BASE_URL . "/f?l=$maxmind_key&i=$ip_address";
+      return SMART_IP_MAXMIND_GEOIP_BASE_URL . "/f?l=$maxmind_license&i=$ip_address";
       break;
     case 'omni':
       return '';

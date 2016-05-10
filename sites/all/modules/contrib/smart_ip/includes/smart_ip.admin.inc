@@ -578,6 +578,8 @@ function smart_ip_admin_settings_submit($form, &$form_state) {
     $smart_ip_session['debug_mode'] = TRUE;
     smart_ip_session_set('smart_ip', $smart_ip_session);
     $location = smart_ip_get_location($ip);
+    // Immediately set the debug mode
+    variable_set('smart_ip_debug', TRUE);
   }
   else {
     // Debug off - make sure we set/reset to their real values

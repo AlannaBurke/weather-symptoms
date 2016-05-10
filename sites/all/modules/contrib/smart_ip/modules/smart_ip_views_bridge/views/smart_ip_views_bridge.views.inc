@@ -115,31 +115,33 @@ function smart_ip_views_bridge_views_data() {
       'click sortable' => FALSE,
     ),
   );
-  $data['smartip']['distance'] = array(
-    'title' => t('Openlayers proximity distance'),
-    'help' => t('Distance from a give point.'),
-    'sort' => array(
-      'handler' => 'smart_ip_views_bridge_openlayers_proximity_handler_sort',
-    ),
-    'field' => array(
-      'handler' => 'smart_ip_views_bridge_openlayers_proximity_handler_field',
-      'click sortable' => TRUE,
-    ),
-  );
-  $data['smartip']['flat'] = array(
-    'title' => t('Openlayers proximity square'),
-    'help' => t('Gives locations contained within a square derived by a simple latitude/longitude comparison.'),
-    'filter' => array(
-      'handler' => 'smart_ip_views_bridge_openlayers_proximity_handler_filter_square',
-    ),
-  );
-  $data['smartip']['circle'] = array(
-    'title' => t('Openlayers proximity great-circle'),
-    'help' => t('Uses the Great-circle distance formula to return locations within a circular area.'),
-    'filter' => array(
-      'handler' => 'smart_ip_views_bridge_openlayers_proximity_handler_filter_circle',
-    ),
-  );
+  if (module_exists('openlayers_proximity')) {
+    $data['smartip']['distance'] = array(
+      'title' => t('Openlayers proximity distance'),
+      'help' => t('Distance from a give point.'),
+      'sort' => array(
+        'handler' => 'smart_ip_views_bridge_openlayers_proximity_handler_sort',
+      ),
+      'field' => array(
+        'handler' => 'smart_ip_views_bridge_openlayers_proximity_handler_field',
+        'click sortable' => TRUE,
+      ),
+    );
+    $data['smartip']['flat'] = array(
+      'title' => t('Openlayers proximity square'),
+      'help' => t('Gives locations contained within a square derived by a simple latitude/longitude comparison.'),
+      'filter' => array(
+        'handler' => 'smart_ip_views_bridge_openlayers_proximity_handler_filter_square',
+      ),
+    );
+    $data['smartip']['circle'] = array(
+      'title' => t('Openlayers proximity great-circle'),
+      'help' => t('Uses the Great-circle distance formula to return locations within a circular area.'),
+      'filter' => array(
+        'handler' => 'smart_ip_views_bridge_openlayers_proximity_handler_filter_circle',
+      ),
+    );
+  }
   
   return $data;
 }
