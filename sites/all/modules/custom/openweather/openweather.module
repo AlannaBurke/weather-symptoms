@@ -9,6 +9,7 @@ require_once DRUPAL_ROOT . '/vendor/cmfcmf/openweathermap-php-api/Cmfcmf/OpenWea
 require DRUPAL_ROOT . '/vendor/autoload.php';
 use Cmfcmf\OpenWeatherMap;
 
+putenv("TZ=America/Tijuana");
 /**
  * Function to get hourly weather history (test).
  */
@@ -22,6 +23,8 @@ function openweather_get_history() {
 
   // Get OpenWeatherMap object.
   $owm = new OpenWeatherMap();
+  $owm->setApiKey(049196ba91a7e3e772c2c420d69cb682);
+
   $history = $owm->getWeatherHistory('Oceanside', new \DateTime('- 1 week'), new \DateTime('now'), 'hour', $units, $lang);
 
   foreach ($history as $weather) {
@@ -87,7 +90,7 @@ function openweather_humidity_line_graph(array $array) {
 
   // Make the margin around the plot a little bit bigger
   // then default
-  $graph->img->SetMargin(40,140,40,100); 
+  $graph->img->SetMargin(40,140,40,100);
 
   // Slightly adjust the legend from it's default position in the
   // top right corner to middle right side
@@ -109,7 +112,7 @@ function openweather_humidity_line_graph(array $array) {
   $graph->Add($p1);
 
   // Finally output the  image
-  $graph->Stroke(DRUPAL_ROOT . '/sites/all/modules/custom/openweather/images/humidity' . date('now') . '.png');
+  $graph->Stroke(DRUPAL_ROOT . '/sites/all/modules/custom/openweather/images/humidity' . date("D M j Y g:i a") . '.png');
 
 }
 
@@ -137,7 +140,7 @@ function openweather_pressure_line_graph(array $array) {
 
   // Make the margin around the plot a little bit bigger
   // then default
-  $graph->img->SetMargin(140,140,140,180); 
+  $graph->img->SetMargin(140,140,140,180);
 
   // Slightly adjust the legend from it's default position in the
   // top right corner to middle right side
@@ -158,6 +161,6 @@ function openweather_pressure_line_graph(array $array) {
   $graph->Add($p1);
 
   // Finally output the  image
-  $graph->Stroke(DRUPAL_ROOT . '/sites/all/modules/custom/openweather/images/pressure' . date('now') . '.png');
+  $graph->Stroke(DRUPAL_ROOT . '/sites/all/modules/custom/openweather/images/pressure' . date("D M j Y g:i a") . '.png');
 
 }
